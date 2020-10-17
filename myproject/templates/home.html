@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="jumbotron">
+        {% if current_user.is_authenticated %}
+            <!-- The way we're able to grab this current user is because we set up the "load_user" in the models.py file-->
+            <p> Hello {{current_user.username}}, and welcome! Browse around!</p>
+        {% else %}
+            <p>Not Registered? Register now!</p>
+        {% endif %}
+        
+
+
+    </div>
+{% endblock %}
+
+
