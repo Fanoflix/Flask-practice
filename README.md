@@ -1,2 +1,2 @@
 # Flask-practice
- Flask backend programming. SQlite as Database.
+##### Making a test website with Flask as Backend and SQlite as the database.
