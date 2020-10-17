@@ -4,9 +4,14 @@
     <div class="jumbotron">
         {% if current_user.is_authenticated %}
             <!-- The way we're able to grab this current user is because we set up the "load_user" in the models.py file-->
-            <p> Hello {{current_user.username}}, and welcome! Browse around!</p>
+            
+            <p style="color: red;font-style:italic; display: flex; flex-direction: right;"> Logged in as "{{ current_user.username }}"</p>
+            <br>____________________________________________
+            <h1 style="color: darkgray; font-variant-caps: all-petite-caps;    "> Hello {{current_user.username}}!</h1>
+            <h5 style="color: gray;">Welcome! Browse around!</h5>
         {% else %}
-            <p>Not Registered? Register now!</p>
+            <h1 style="color: red;"> Welcome to Evaluatrix!</h1>
+            <p style="color: darkred;">Don't have an Account? Register now with Evaluatrix and browse countless assignments to test yourself!</p>
         {% endif %}
         
 
