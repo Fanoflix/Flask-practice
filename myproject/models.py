@@ -9,8 +9,9 @@ from flask_login import UserMixin
 # is_anonymous()
 # get_id()
 
-# We need to add loaduser function here, this is basically going to allow flask login to load the current user 
-# and grab their login ID. So we can show them pages specific to their login ID.
+# We need to add loaduser function here, this is basically going to allow flask login to 
+# load the current user and grab their login ID. So we can show them pages specific to their 
+# login ID.
 
 # builtin decorator
 @login_manager.user_loader

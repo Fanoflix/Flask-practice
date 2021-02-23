@@ -3,7 +3,7 @@ from myproject import app, db
 from flask import render_template, redirect, request, url_for, flash, abort
 from flask_login import login_user, login_required, logout_user
 from myproject.models import User
-from myproject.forms import LoginForm, Registration
+from myproject.forms import LoginForm, Registration, Err
 
 @app.route('/')
 def home():
@@ -29,17 +29,19 @@ def logout():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
 
-    form = LoginForm()
-    if form.validate_on_submit():
+    form1 = LoginForm()
+    errform = Err()
+
+    if form1.submit.data and form1.validate_on_submit():
         # We 'get' from the database the user that the customer provided.
         # Thats why we use query here. We won't be using query in the registration view... (*)
-        user = User.query.filter_by(email=form.email.data).first()
+        user = User.query.filter_by(email=form1.email.data).first()
         
         # check_password() is the function from our User model from our models.py file
         # the condition before "and" checks if the password is valid.
         # the condition after checks if the user was provided. Basically checking if
         # a user is registered.
-        if user.check_password(form.password.data) and user is not None:
+        if user.check_password(form1.password.data) and user is not None:
             # This login_user() function is frm the "flask_login" import
             login_user(user)
             flash('Logged in Successfully')
@@ -58,9 +60,14 @@ def login():
             # Once they log in, they will be redirected to the page they orginally requested.
             return redirect(next)
         
+    if errform.err.data and errform.validate_on_submit():
+        return render_template('error.html')
+
     # The default view when a person tries to login. I.e: the login page
     # This return statement should be on the top most level of this function. (lined with the first if)
-    return render_template('login.html', form=form)
+    return render_template('login.html', form1=form1, errform=errform)
+
+    
             
              
 @app.route('/register', methods=['GET', 'POST'])
@@ -70,6 +77,7 @@ def register():
     if form.validate_on_submit():
         # (*) Because we are 'ADDING' to the database a new 'User' object, with the information 
         # provided in the form.
+        form.check_email(form.email.data)
         user = User(email=form.email.data,
                     username=form.username.data,
                     mypassword=form.password.data)
@@ -83,7 +91,7 @@ def register():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
 
 
 

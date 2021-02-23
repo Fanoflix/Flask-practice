@@ -2,11 +2,17 @@
 
 {% block content %} 
     <form method="POST">
-        {{form.hidden_tag()}}
-        {{form.email.label}} {{form.email}}
-        {{form.password.label}} {{form.password()}}
-        {{form.submit()}}
+        {{form1.hidden_tag()}}
+        {{form1.email.label}} {{form1.email}}
+        {{form1.password.label}} {{form1.password()}}
+        {{form1.submit()}}
+    </form>
 
+    <br>
+
+    <form method="POST">
+        {{errform.hidden_tag()}}
+        {{errform.err.label}} {{errform.err()}}
     </form>
 {% endblock %}
 
